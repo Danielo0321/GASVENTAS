@@ -11,3 +11,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 ```
+
+```P
+df = pd.read_csv('mi_df.csv', header=0)
+```
