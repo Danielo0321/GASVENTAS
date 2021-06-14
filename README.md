@@ -48,4 +48,4 @@ df.head()
 df['GASVENTAS92[, "Value"]'].plot()
 ```
 
-
+![patients](Figuras_GV/GV92.png)
