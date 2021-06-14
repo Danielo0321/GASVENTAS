@@ -36,6 +36,8 @@ memory usage: 2.9+ GB
 df.describe()
 ```
 
+> Poner bastante atención a las variables con mayor STD y adicionalmente que la variable 93 no tiene asociado ningún valor (Descartarla dado que no aporta nada al análisis)
+
 ```python
 df.columns
 ```
