@@ -20,10 +20,17 @@ df = pd.read_csv('mi_df.csv', header=0)
 ```python
 df.head()
 ```
+> En total son 103 columnas, siendo que cada una representa una variable de la turbina y la primera columna corresponde a la estampa de tiempo
 
 ```python
 df.info()
 ```
+
+> <class 'pandas.core.frame.DataFrame'>
+RangeIndex: 3719520 entries, 0 to 3719519
+Columns: 103 entries, Unnamed: 0 to GASVENTAS105[, "Value"]
+dtypes: float64(101), int64(1), object(1)
+memory usage: 2.9+ GB
 
 ```python
 df.describe()
