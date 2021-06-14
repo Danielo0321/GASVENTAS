@@ -67,3 +67,5 @@ df['GASVENTAS104[, "Value"]'].plot()
 ```
 
 ![patients](Figuras_GV/GV104.png)
+
+> algom owedewoinoeinm
