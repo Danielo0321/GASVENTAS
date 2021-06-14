@@ -60,6 +60,8 @@ df['GASVENTAS92[, "Value"]'].plot()
 
 ![patients](Figuras_GV/GV92.png)
 
+> Note la irregularidad del comportamiento presentado en la mitad del intervalo y que esa misma irregularidad está presente en las siguientes variables. Determinar con exactitud la fecha y consultar el la vitácora de los operadores si corresponde a alguna maniobra planeada.
+
 ```python
 df['GASVENTAS95[, "Value"]'].plot()
 ```
