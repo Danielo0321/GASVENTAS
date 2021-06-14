@@ -53,4 +53,17 @@ df['GASVENTAS92[, "Value"]'].plot()
 ```P
 df['GASVENTAS95[, "Value"]'].plot()
 ```
-![patients](Figuras_GV/GV92.png)
+
+![patients](Figuras_GV/GV95.png)
+
+```P
+df['GASVENTAS101[, "Value"]'].plot()
+```
+
+![patients](Figuras_GV/GV101.png)
+
+```P
+df['GASVENTAS104[, "Value"]'].plot()
+```
+
+![patients](Figuras_GV/GV104.png)
