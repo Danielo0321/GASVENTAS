@@ -1,4 +1,4 @@
-#GAS VENTAS
+# GAS VENTAS
 
 > Este es un proyecto empleado para la exploración de modelos y relaciones establecidas entre las variables contenidas en el df llamado 'mi_df.csv'
 
