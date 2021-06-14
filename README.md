@@ -1,7 +1,8 @@
 #GAS VENTAS
-Este es un proyecto empleado para la exploración de modelos y relaciones establecidas entre las variables contenidas en el df llamado 'mi_df.csv'
 
-Pueden descargar los datos en el siguiente link:
+> Este es un proyecto empleado para la exploración de modelos y relaciones establecidas entre las variables contenidas en el df llamado 'mi_df.csv'
+
+> Pueden descargar los datos en el siguiente link:
 
 **https://drive.google.com/file/d/1LruXV-BIohTmBBgtYQqmETWbXoPj_edz/view?usp=sharing**
 
@@ -68,4 +69,4 @@ df['GASVENTAS104[, "Value"]'].plot()
 
 ![patients](Figuras_GV/GV104.png)
 
-> algom owedewoinoeinm
+> La siguiente variable corresponde a la velocidad de la turbina. Su relevancia es bastante significativa dado que es un buen indicador del funcionamiento de la turbina y en ese sentido puede considerarse que si la variable está por debajo de las 3000 rpm la turbina está en falla, si está en 0 rpm la turbina está fuera de línea, entre 8000 y 8700 la turbina está operando normalmente y por encima de ese rango la turbina está en falla.
