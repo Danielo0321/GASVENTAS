@@ -3,7 +3,7 @@ Este es un proyecto empleado para la exploración de modelos y relaciones establ
 
 Pueden descargar los datos en el siguiente link:
 
-**https://drive.google.com/drive/folders/1V9WTZJs5AGgqG6cxt3GoKkzxV9Me-jo5?usp=sharing**
+**https://drive.google.com/file/d/1LruXV-BIohTmBBgtYQqmETWbXoPj_edz/view?usp=sharing**
 
 
 ```P
@@ -15,3 +15,34 @@ import numpy as np
 ```P
 df = pd.read_csv('mi_df.csv', header=0)
 ```
+
+```P
+df.head()
+```
+
+```P
+df.info()
+```
+
+```P
+df.describe()
+```
+
+```P
+df.columns
+```
+
+```P
+df = df.rename(columns={'Value':'GASVENTAS1[, "Value"]'})
+```
+
+```P
+df.head()
+```
+
+```P
+%matplotlib inline
+df['GASVENTAS92[, "Value"]'].plot()
+```
+
+
