@@ -20,7 +20,7 @@ df = pd.read_csv('mi_df.csv', header=0)
 ```python
 df.head()
 ```
-> En total son 103 columnas, siendo que cada una representa una variable de la turbina y la primera columna corresponde a la estampa de tiempo
+> En total son 103 columnas, siendo que cada una representa una variable de la turbina y la primera columna corresponde a la estampa de tiempo cuyo intervalo comienza el 01/01/2018 a las 00h00.00 y termina el 10/05/2020 a las 23h59.59. Todas las variables tienen la misma estampa de tiempo y el periodo de muestreo es de 20seg.
 
 ```python
 df.info()
