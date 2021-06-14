@@ -42,6 +42,9 @@ df.head()
 
 ```P
 %matplotlib inline
+```
+
+```P
 df['GASVENTAS92[, "Value"]'].plot()
 ```
 
