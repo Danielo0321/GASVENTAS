@@ -4,3 +4,10 @@ Este es un proyecto empleado para la exploración de modelos y relaciones establ
 Pueden descargar los datos en el siguiente link:
 
 **https://drive.google.com/drive/folders/1V9WTZJs5AGgqG6cxt3GoKkzxV9Me-jo5?usp=sharing**
+
+
+```P
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+```
