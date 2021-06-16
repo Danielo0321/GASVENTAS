@@ -161,3 +161,5 @@ pd.DataFrame.from_records(train).to_csv(train_file, index=False, header=True, se
 test_file = 'Gasv-test.csv'
 pd.DataFrame.from_records(test).to_csv(test_file, index=False, header=True, sep=',')
 ```
+
+> Por tratarse de un ejercicio cuya salida corresponde a varios estados, no es posible usar los algoritmos de clasificación binaria
