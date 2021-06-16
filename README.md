@@ -80,10 +80,52 @@ df['GASVENTAS104[, "Value"]'].plot()
 
 ![patients](Figuras_GV/GV104.png)
 
-> La siguiente variable corresponde a la velocidad de la turbina. Su relevancia es bastante significativa dado que es un buen indicador del funcionamiento de la turbina y en ese sentido puede considerarse que si la variable está por debajo de las 6000 rpm la turbina está en falla, si está en 0 rpm la turbina está fuera de línea, entre 8000 y 9000 la turbina está operando normalmente y por encima de 9000 rpm la turbina está en falla.
 
 ```python
 df['GASVENTAS13[, "Value"]'].plot()
 ```
 
 ![patients](Figuras_GV/GV13.png)
+
+> La variable anterior corresponde a la velocidad de la turbina. Su relevancia es bastante significativa dado que es un buen indicador del funcionamiento de la turbina y en ese sentido puede considerarse que si la variable está por debajo de las 6000 rpm la turbina está en falla, si está en 0 rpm la turbina está fuera de línea, entre 8000 y 9000 la turbina está operando normalmente y por encima de 9000 rpm la turbina está en falla. En ese sentido es posible crear una nueva columna para introducir las condiciones o estados operativos descritos anteriormente.
+
+``` Python
+df['Estado_rpm'] = ''
+df.loc[df['GASVENTAS13[, "Value"]']==0, 'Estado_rpm'] = 1
+df.loc[(df['GASVENTAS13[, "Value"]']>0) & (df['GASVENTAS13[, "Value"]']<6000), 'Estado_rpm'] = 2
+df.loc[(df['GASVENTAS13[, "Value"]']>=6000) & (df['GASVENTAS13[, "Value"]']<8000), 'Estado_rpm'] = 3
+df.loc[(df['GASVENTAS13[, "Value"]']>=8000) & (df['GASVENTAS13[, "Value"]']<9000), 'Estado_rpm'] = 4
+df.loc[df['GASVENTAS13[, "Value"]']>=9000, 'Estado_rpm'] = 5
+```
+
+> Comprobamos que a todas las filas les fue atribuido alguno de los estados
+
+```python
+df['Estado_rpm'].value_counts()
+``` 
+
+```python
+4    2543143
+3     483779
+5     470274
+2     222209
+1        115
+Name: Estado_rpm, dtype: int64
+``` 
+
+> En un conjunto de datos de más de 100 variables, muy probablemente menos del 50% realiza un aporte significativo en la sintetización de modelos. Adicional a eso el costo computacional resultaría favorecido. Podemos implementar la desviación estándar para identificar aquellas variables cuyo comportamiento ha sido dinámico y por lo tanto su contribución en la extracción de modelos es mayor.
+
+```Python
+metricas = df.describe()
+#metricas.info()
+#std = metricas.iloc[2,:]
+#print(std)
+```
+
+> Es posible graficar el vector std para visualizar las variables con mayor desviación estándar
+
+```Python
+metricas.iloc[2,1:].plot(kind='bar', figsize=(20,10))
+```
+
+![patients](Figuras_GV/STD.png)
