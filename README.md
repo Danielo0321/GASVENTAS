@@ -131,3 +131,33 @@ metricas.iloc[2,1:].plot(kind='bar', figsize=(20,10))
 ![patients](Figuras_GV/STD.png)
 
 > Note que las variables con mayor desviación son GASVENTAS13[, "Value"], GASVENTAS14[, "Value"] y GASVENTAS101[, "Value"], siendo que GASVENTAS13[, "Value"], tal como se mencionó anteriormente corresponde a la velocidad de la turbina y por lo tanto es considerada una de las variables de mayor relevancia.
+
+> Vamos ahora a crear los archivos de entrenamiento y validación, para eso he decidido tomar el 80% de los datos para entrenar y el 20% para validar
+
+
+```Python
+train, test = train_test_split(df, test_size=0.2)
+```
+
+> Note que efectivamente se han repartido los datos en las proporciones correspondientes
+
+```Python
+print('all:  ', len(df))
+print('train:', len(train))
+print('test: ', len(test))
+```
+
+```Python
+all:   3719520
+train: 2975616
+test:  743904
+```
+> Finalmente se almacenan los archivos Gasv-train y Gasv-test
+
+```Python
+train_file = 'Gasv-train.csv'
+pd.DataFrame.from_records(train).to_csv(train_file, index=False, header=True, sep=',')
+
+test_file = 'Gasv-test.csv'
+pd.DataFrame.from_records(test).to_csv(test_file, index=False, header=True, sep=',')
+```
