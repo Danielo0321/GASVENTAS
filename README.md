@@ -122,7 +122,7 @@ metricas = df.describe()
 #print(std)
 ```
 
-> Es posible graficar el vector std para visualizar las variables con mayor desviación estándar
+> Es posible graficar el vector correspondiente a la desviación estándar para visualizar las variables con comportamientos más dinámicos.
 
 ```Python
 metricas.iloc[2,1:].plot(kind='bar', figsize=(20,10))
