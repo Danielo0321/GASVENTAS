@@ -129,3 +129,5 @@ metricas.iloc[2,1:].plot(kind='bar', figsize=(20,10))
 ```
 
 ![patients](Figuras_GV/STD.png)
+
+> Note que las variables con mayor desviación son GASVENTAS13[, "Value"], GASVENTAS14[, "Value"] y GASVENTAS101[, "Value"], siendo que GASVENTAS13[, "Value"], tal como se mencionó anteriormente corresponde a la velocidad de la turbina y por lo tanto es considerada una de las variables de mayor relevancia.
