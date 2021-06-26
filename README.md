@@ -56,18 +56,51 @@ memory usage: 2.9+ GB
 df.describe()
 ```
 
-> Poner bastante atención a las variables con mayor STD. Adicionalmente es posible elminar la variable GASVENTAS93[, "Value"] no tiene asociado ningún valor y no le aporta nada al análisis.
+> Poner bastante atención a las variables con mayor STD. Adicionalmente es posible elminar la variable GASVENTAS93[, "Value"] dado que no tiene asociado ningún valor y no le aporta nada al análisis.
 
 ```python
 del(df['GASVENTAS93[, "Value"]'])
 ```
 
-> Dado que no se puede visualizar el dataframe en su totalidad, procedemos a usar algunos comandos para verificar la existencia de datos **Null** o **NaN**
+> Como no se puede visualizar el dataframe en su totalidad, procedemos a usar algunos comandos para verificar la existencia de datos **Null** o **NaN**
 
 ```python
 df.columns[df.isnull().any()]
 ```
+> El resultado indica las columnas con datos categorizados como  Null o NaN
 
+```python
+Index(['GASVENTAS30[, "Value"]'], dtype='object')
+```
+> Tambien es posible conocer la cantidad de datos que cumplen con la condición de búsqueda
+
+```python
+df.isnull().sum().sum()
+```
+
+```python
+554513
+```
+> Indicando que existen al menos 554513 registros que deben ser corregidos o eliminados. Adicional a eso tambien es posible ir directamente al valor junto con su respectiva posición mediante el siguiente comando.
+
+```python
+null_columns=df.columns[df.isnull().any()]
+df[null_columns].isnull().sum()
+print(df[df.isnull().any(axis=1)][null_columns].head())
+```
+
+```python
+   GASVENTAS30[, "Value"]
+0                     NaN
+1                     NaN
+2                     NaN
+3                     NaN
+4                     NaN
+```
+
+> Debido al elevado número de registros conflictivos no es recomendable eliminarlos dado que este procedimiento eliminaría la fila completa, no apenas de esta variables sino de las demás. En ese contexto, existen dos posibilidades:
+- Eliminar toda la columna al igual que se hizo con la variable 'GASVENTAS30[, "Value"]'
+- Atribuirle el valor de la media de la variable a esos registros conflictivos.
 
 ```python
 df.columns
