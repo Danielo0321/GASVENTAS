@@ -256,7 +256,7 @@ ax.tick_params(labelsize = 10)
 
 > Esto nos arroja el siguiente resultado
 
-![patients](Figuras_GV/Corr_Mat2.png)
+![patients](Figuras_GV/Corr_Matrix2.png)
 
 
 > Dada la relevancia de la variable velocidad podemos crear una nueva columna para atribuirle un estado de acuerdo a los niveles de velocidad presentados por la turbina. Finalmente comprobar que a todas las filas les haya sido atribuido alguno de los estados.
