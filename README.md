@@ -1,11 +1,11 @@
 # GAS VENTAS
 
-> Este es un proyecto empleado para la exploración de modelos y relaciones establecidas entre las variables contenidas en el df llamado 'mi_df.csv'
+> Este es un proyecto empleado para la exploración de modelos y relaciones establecidas entre las 102 variables asociadas a un equipo catalogado como crítico dentro de una organización. El archivo suministrado contiene la evolución temporal de cada una de las variables, donde los registros fueron tomados cada 20 minutos para el periodo de tiempo comprendido entre el 01-Ene-2018 hasta el 10-May-2020.
 
 > [**Pueden descargar el archivo .csv de este link**](https://drive.google.com/file/d/1LruXV-BIohTmBBgtYQqmETWbXoPj_edz/view?usp=sharing)
 
 
-> Procedemos inicialmente con el cargue de las librerías que serán usadas
+> Procedemos inicialmente a cargar las librerías que serán utilizadas
 
 ```python
 import pandas as pd
@@ -25,30 +25,49 @@ from sklearn import preprocessing
 %matplotlib inline
 ```
 
+> Seguidamente se realiza el cargue del dataframe (df) proveniente del archivo 'mi_df.csv'
+
 ```python
 df = pd.read_csv('mi_df.csv', header=0)
 ```
 
+> Luego una ligera inspección de los datos a ser analizados
+
 ```python
 df.head()
 ```
-> En total son 103 columnas, siendo que cada una representa una variable de la turbina y la primera columna corresponde a la estampa de tiempo cuyo intervalo comienza el 01/01/2018 a las 00h00.00 y termina el 10/05/2020 a las 23h59.59. Todas las variables tienen la misma estampa de tiempo y el periodo de muestreo es de 20seg.
+
+> En total son 103 columnas, cada una representa una variable del equipo siendo que la primera columna corresponde a la estampa de tiempo (Todas las variables tienen la misma estampa de tiempo) y el volumen total de los datos es de 3GB apoximadamente.
+
 
 ```python
 df.info()
 ```
 
-> <class 'pandas.core.frame.DataFrame'>
+```python
+<class 'pandas.core.frame.DataFrame'>
 RangeIndex: 3719520 entries, 0 to 3719519
 Columns: 103 entries, Unnamed: 0 to GASVENTAS105[, "Value"]
 dtypes: float64(101), int64(1), object(1)
 memory usage: 2.9+ GB
+```
 
 ```python
 df.describe()
 ```
 
-> Poner bastante atención a las variables con mayor STD y adicionalmente que la variable 93 no tiene asociado ningún valor (Descartarla dado que no aporta nada al análisis)
+> Poner bastante atención a las variables con mayor STD. Adicionalmente es posible elminar la variable GASVENTAS93[, "Value"] no tiene asociado ningún valor y no le aporta nada al análisis.
+
+```python
+del(df['GASVENTAS93[, "Value"]'])
+```
+
+> Dado que no se puede visualizar el dataframe en su totalidad, procedemos a usar algunos comandos para verificar la existencia de datos **Null** o **NaN**
+
+```python
+df.columns[df.isnull().any()]
+```
+
 
 ```python
 df.columns
