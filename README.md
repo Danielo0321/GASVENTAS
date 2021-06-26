@@ -200,48 +200,121 @@ np.std(df1).plot(kind='bar', figsize=(20,10))
 ![patients](Figuras_GV/STD1.png)
 
 
+> Para reducir el costo computacional, se hace una selección de las variables con STD superior a 0.2
+
 ```python
-df.columns
+std=np.std(df1)
+std=pd.DataFrame(std, columns=['STD'])
+Index = std[std['STD']>=0.2].index.tolist()
+print(Index)
 ```
 
 ```python
-df = df.rename(columns={'Value':'GASVENTAS1[, "Value"]'})
+['GASVENTAS13', 'GASVENTAS14', 'GASVENTAS30', 'GASVENTAS41', 'GASVENTAS47', 'GASVENTAS48', 'GASVENTAS53', 'GASVENTAS54', 'GASVENTAS55', 'GASVENTAS56', 'GASVENTAS57', 'GASVENTAS58', 'GASVENTAS59', 'GASVENTAS60', 'GASVENTAS61', 'GASVENTAS62', 'GASVENTAS63', 'GASVENTAS64', 'GASVENTAS65', 'GASVENTAS66', 'GASVENTAS67', 'GASVENTAS72', 'GASVENTAS73', 'GASVENTAS74', 'GASVENTAS79', 'GASVENTAS82', 'GASVENTAS83', 'GASVENTAS84', 'GASVENTAS89', 'GASVENTAS101']
 ```
 
+![patients](Figuras_GV/STD3.png)
 
 
+> Seguidamente se calcula la matriz de correlación de las variables seleccionadas mediante el siguiente comando
+
+```python
+corr_matrix = df1[Index].corr(method='pearson')
+corr_matrix
+```
+
+![patients](Figuras_GV/Corr_Mat.png)
+
+> Adicional a eso procedemos a graficar la matriz de correlación para identificar si existe algún par de variables idénticas o que puedan representarse mediante una recta. Para eso utilizamos el siguiente comando:
+
+```python
+# Heatmap matriz de correlaciones
+# ==============================================================================
+fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(20, 20))
+
+sns.heatmap(
+    corr_matrix,
+    annot     = True,
+    cbar      = False,
+    annot_kws = {"size": 8},
+    vmin      = -1,
+    vmax      = 1,
+    center    = 0,
+    cmap      = sns.diverging_palette(20, 220, n=200),
+    square    = True,
+    ax        = ax
+)
+
+ax.set_xticklabels(
+    ax.get_xticklabels(),
+    rotation = 45,
+    horizontalalignment = 'right',
+)
+
+ax.tick_params(labelsize = 10)
+```
+
+> Esto nos arroja el siguiente resultado
+
+![patients](Figuras_GV/Corr_Mat2.png)
+
+
+> Dada la relevancia de la variable velocidad podemos crear una nueva columna para atribuirle un estado de acuerdo a los niveles de velocidad presentados por la turbina. Finalmente comprobar que a todas las filas les haya sido atribuido alguno de los estados.
 
 
 ```python
-df.head()
+df1['Estado_rpm'] = ''
+df1.loc[df1['GASVENTAS13']==0, 'Estado_rpm'] = 0
+df1.loc[(df1['GASVENTAS13']>0) & (df1['GASVENTAS13']<0.5), 'Estado_rpm'] = 1
+df1.loc[(df1['GASVENTAS13']>=0.5) & (df1['GASVENTAS13']<0.66), 'Estado_rpm'] = 2
+df1.loc[(df1['GASVENTAS13']>=0.66) & (df1['GASVENTAS13']<0.75), 'Estado_rpm'] = 3
+df1.loc[df1['GASVENTAS13']>=0.75, 'Estado_rpm'] = 4
+df1['Estado_rpm'].value_counts()
 ```
 
 ```python
-%matplotlib inline
-```
-``` Python
-df['Estado_rpm'] = ''
-df.loc[df['GASVENTAS13[, "Value"]']==0, 'Estado_rpm'] = 1
-df.loc[(df['GASVENTAS13[, "Value"]']>0) & (df['GASVENTAS13[, "Value"]']<6000), 'Estado_rpm'] = 2
-df.loc[(df['GASVENTAS13[, "Value"]']>=6000) & (df['GASVENTAS13[, "Value"]']<8000), 'Estado_rpm'] = 3
-df.loc[(df['GASVENTAS13[, "Value"]']>=8000) & (df['GASVENTAS13[, "Value"]']<9000), 'Estado_rpm'] = 4
-df.loc[df['GASVENTAS13[, "Value"]']>=9000, 'Estado_rpm'] = 5
-```
-
-> Comprobamos que a todas las filas les fue atribuido alguno de los estados
-
-```python
-df['Estado_rpm'].value_counts()
-``` 
-
-```python
-4    2543143
-3     483779
-5     470274
-2     222209
-1        115
+3    2621882
+4     470274
+2     405040
+1     222209
+0        115
 Name: Estado_rpm, dtype: int64
-``` 
+```
+
+> Vamos ahora a crear los archivos de entrenamiento y validación, para eso he decidido tomar el 70% de los datos para entrenar modelo y el 20% para validarlo
+
+
+```Python
+train, test = train_test_split(df, test_size=0.3)
+```
+
+> Note que efectivamente se han repartido los datos en las proporciones correspondientes
+
+```Python
+print('all:  ', len(df))
+print('train:', len(train))
+print('test: ', len(test))
+```
+
+```Python
+all:   3719520
+train: 2603664
+test:  1115856
+```
+
+
+> Finalmente se almacenan los archivos Gasv-train y Gasv-test
+
+```Python
+train_file = 'Gasv-train.csv'
+pd.DataFrame.from_records(train).to_csv(train_file, index=False, header=True, sep=',')
+
+test_file = 'Gasv-test.csv'
+pd.DataFrame.from_records(test).to_csv(test_file, index=False, header=True, sep=',')
+```
+
+
+
 
 > En un conjunto de datos de más de 100 variables, muy probablemente menos del 50% realiza un aporte significativo en la sintetización de modelos. Adicional a eso el costo computacional resultaría favorecido. Podemos implementar la desviación estándar para identificar aquellas variables cuyo comportamiento ha sido dinámico y por lo tanto su contribución en la extracción de modelos es mayor.
 
@@ -262,34 +335,8 @@ metricas.iloc[2,1:].plot(kind='bar', figsize=(20,10))
 
 > Note que las variables con mayor desviación son GASVENTAS13[, "Value"], GASVENTAS14[, "Value"] y GASVENTAS101[, "Value"], siendo que GASVENTAS13[, "Value"], tal como se mencionó anteriormente corresponde a la velocidad de la turbina y por lo tanto es considerada una de las variables de mayor relevancia.
 
-> Vamos ahora a crear los archivos de entrenamiento y validación, para eso he decidido tomar el 80% de los datos para entrenar y el 20% para validar
 
 
-```Python
-train, test = train_test_split(df, test_size=0.2)
-```
 
-> Note que efectivamente se han repartido los datos en las proporciones correspondientes
-
-```Python
-print('all:  ', len(df))
-print('train:', len(train))
-print('test: ', len(test))
-```
-
-```Python
-all:   3719520
-train: 2975616
-test:  743904
-```
-> Finalmente se almacenan los archivos Gasv-train y Gasv-test
-
-```Python
-train_file = 'Gasv-train.csv'
-pd.DataFrame.from_records(train).to_csv(train_file, index=False, header=True, sep=',')
-
-test_file = 'Gasv-test.csv'
-pd.DataFrame.from_records(test).to_csv(test_file, index=False, header=True, sep=',')
-```
 
 > Por tratarse de un ejercicio cuya salida corresponde a varios estados, no es posible usar los algoritmos de clasificación binaria
