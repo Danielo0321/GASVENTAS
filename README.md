@@ -81,7 +81,7 @@ df.isnull().sum().sum()
 ```python
 554513
 ```
-> Indicando que existen al menos 554513 registros que deben ser corregidos o eliminados. Adicional a eso tambien es posible ir directamente al valor junto con su respectiva posición mediante el siguiente comando.
+> Indicando que existen al menos 554513 registros que deben ser corregidos o eliminados. Tambien es posible ir directamente al valor junto con su respectiva posición mediante el siguiente comando:
 
 ```python
 null_columns=df.columns[df.isnull().any()]
@@ -98,25 +98,19 @@ print(df[df.isnull().any(axis=1)][null_columns].head())
 4                     NaN
 ```
 
-> Debido al elevado número de registros conflictivos no es recomendable eliminarlos dado que este procedimiento eliminaría la fila completa, no apenas de esta variables sino de las demás. En ese contexto, existen dos posibilidades:
-- Eliminar toda la columna al igual que se hizo con la variable 'GASVENTAS30[, "Value"]'
-- Atribuirle el valor de la media de la variable a esos registros conflictivos.
+> Debido al elevado número de registros conflictivos no es recomendable eliminarlos dado que este procedimiento eliminaría la fila completa, no apenas de esta variables sino de las demás. En ese contexto, quedan abiertas las siguientes dos posibilidades:
 
+- Eliminar toda la columna al igual que se hizo con la variable 'GASVENTAS393[, "Value"]', mediante el siguiente comando:
 ```python
-df.columns
+del(df['GASVENTAS30[, "Value"]'])
 ```
 
+- Atribuirle el valor de la media de la variable, a esos registros que presentan conflicto.
 ```python
-df = df.rename(columns={'Value':'GASVENTAS1[, "Value"]'})
+df = df.fillna(df.mean())
 ```
 
-```python
-df.head()
-```
-
-```python
-%matplotlib inline
-```
+> Luego procedemos a analizar las dinámicas presentadas por algunas de las variables
 
 ```python
 df['GASVENTAS92[, "Value"]'].plot()
@@ -153,6 +147,34 @@ df['GASVENTAS13[, "Value"]'].plot()
 
 > La variable anterior corresponde a la velocidad de la turbina. Su relevancia es bastante significativa dado que es un buen indicador del funcionamiento de la turbina y en ese sentido puede considerarse que si la variable está por debajo de las 6000 rpm la turbina está en falla, si está en 0 rpm la turbina está fuera de línea, entre 8000 y 9000 la turbina está operando normalmente y por encima de 9000 rpm la turbina está en falla. En ese sentido es posible crear una nueva columna para introducir las condiciones o estados operativos descritos anteriormente.
 
+> Se crea un nuevo dataframe, esta vez para suprimir la columna relacionada con la estampa de tiempo. Por el momento no será relevante esta columna dentro de los análisis.
+
+```python
+df1=df.iloc[:,2:]
+# df1.head()
+```
+
+> Siendo 
+
+```python
+df.columns
+```
+
+```python
+df = df.rename(columns={'Value':'GASVENTAS1[, "Value"]'})
+```
+
+
+
+
+
+```python
+df.head()
+```
+
+```python
+%matplotlib inline
+```
 ``` Python
 df['Estado_rpm'] = ''
 df.loc[df['GASVENTAS13[, "Value"]']==0, 'Estado_rpm'] = 1
