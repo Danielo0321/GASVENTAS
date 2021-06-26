@@ -2,18 +2,26 @@
 
 > Este es un proyecto empleado para la exploración de modelos y relaciones establecidas entre las variables contenidas en el df llamado 'mi_df.csv'
 
-> [**Pueden descargar los datos en el siguiente link**](https://drive.google.com/file/d/1LruXV-BIohTmBBgtYQqmETWbXoPj_edz/view?usp=sharing)
+> [**Pueden descargar el archivo .csv de este link**](https://drive.google.com/file/d/1LruXV-BIohTmBBgtYQqmETWbXoPj_edz/view?usp=sharing)
 
 
 
 
-```python
-import pandas as pd
+```pythonimport pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sns
+import seaborn as sb
+
+
 from statistics import *
 from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.cluster import KMeans
+from sklearn.metrics import pairwise_distances_argmin_min
+from sklearn import preprocessing
+%matplotlib inline
 ```
 
 ```python
