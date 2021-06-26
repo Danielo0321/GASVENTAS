@@ -58,6 +58,9 @@ memory usage: 2.9+ GB
 df.describe()
 ```
 
+![patients](Figuras_GV/df_describe().png)
+
+
 > Poner bastante atención a las variables con mayor STD. Adicionalmente es posible elminar la variable GASVENTAS93[, "Value"] dado que no tiene asociado ningún valor y no le aporta nada al análisis.
 
 ```python
