@@ -2,9 +2,9 @@
 
 > Este es un proyecto empleado para la exploración de modelos y relaciones establecidas entre las variables contenidas en el df llamado 'mi_df.csv'
 
-> Pueden descargar los datos en el siguiente link:
+> [**Pueden descargar los datos en el siguiente link**](https://drive.google.com/file/d/1LruXV-BIohTmBBgtYQqmETWbXoPj_edz/view?usp=sharing)
 
-**https://drive.google.com/file/d/1LruXV-BIohTmBBgtYQqmETWbXoPj_edz/view?usp=sharing**
+
 
 
 ```python
