@@ -110,7 +110,7 @@ del(df['GASVENTAS30[, "Value"]'])
 df = df.fillna(df.mean())
 ```
 
-> Luego procedemos a analizar las dinámicas presentadas por algunas de las variables
+> Luego procedemos a analizar las dinámicas presentadas por algunas de las variables, observe con atención tanto la evolución temporal como los valores máximos y mínimos. 
 
 ```python
 df['GASVENTAS92[, "Value"]'].plot()
@@ -145,7 +145,7 @@ df['GASVENTAS13[, "Value"]'].plot()
 
 ![patients](Figuras_GV/GV13.png)
 
-> La variable anterior corresponde a la velocidad de la turbina. Su relevancia es bastante significativa dado que es un buen indicador del funcionamiento de la turbina y en ese sentido puede considerarse que si la variable está por debajo de las 6000 rpm la turbina está en falla, si está en 0 rpm la turbina está fuera de línea, entre 8000 y 9000 la turbina está operando normalmente y por encima de 9000 rpm la turbina está en falla. En ese sentido es posible crear una nueva columna para introducir las condiciones o estados operativos descritos anteriormente.
+> La variable anterior corresponde a la velocidad de la turbina. Su relevancia es bastante significativa dado que es un buen indicador de funcionamiento, en ese sentido puede considerarse que si la variable está por debajo de las 6000 rpm la turbina está en falla, si está en 0 rpm la turbina está fuera de línea, entre 8000 y 9000 la turbina está operando normalmente y por encima de 9000 rpm la turbina está en falla.
 
 > Se crea un nuevo dataframe, esta vez para suprimir la columna relacionada con la estampa de tiempo. Por el momento no será relevante esta columna dentro de los análisis.
 
@@ -154,7 +154,28 @@ df1=df.iloc[:,2:]
 # df1.head()
 ```
 
-> Siendo 
+
+> Procederemos ahora a normalizar todas las variables.  
+
+```python
+# minmaxscaler, se usa como primera opcion
+escalador=preprocessing.MinMaxScaler()
+dse=escalador.fit_transform(df1)
+df1=pd.DataFrame(dse, columns=df1.columns)
+```
+
+>  Una vez hecho esto, todas y cada una tendran escalas máximas y mínimas de 1 y 0 respectivamente, como se puede apreciar mediante el siguiente comando:
+
+```python
+df1.describe()
+```
+
+> Para mayor facilidad en la manipulación de las variables, se recomienda cambiar los nombres de cada una de ellas dado que los nombre originales pueden presentar conflictos en la ejecución de algunos comandos.
+
+```python
+df1 = df1.rename(columns={'Value':'GASVENTAS1', 'GASVENTAS2[, "Value"]':'GASVENTAS2', 'GASVENTAS3[, "Value"]':'GASVENTAS3', 'GASVENTAS4[, "Value"]':'GASVENTAS4', 'GASVENTAS5[, "Value"]':'GASVENTAS5', GASVENTAS6[, "Value"]':'GASVENTAS6', GASVENTAS7[, "Value"]':'GASVENTAS7', GASVENTAS8[, "Value"]':'GASVENTAS8', GASVENTAS9[, "Value"]':'GASVENTAS9', GASVENTAS10[, "Value"]':'GASVENTAS10', GASVENTAS11[, "Value"]':'GASVENTAS11', GASVENTAS12[, "Value"]':'GASVENTAS12', GASVENTAS13[, "Value"]':'GASVENTAS13', GASVENTAS14[, "Value"]':'GASVENTAS14', GASVENTAS15[, "Value"]':'GASVENTAS15', GASVENTAS16[, "Value"]':'GASVENTAS16', GASVENTAS17[, "Value"]':'GASVENTAS17', GASVENTAS18[, "Value"]':'GASVENTAS18', GASVENTAS19[, "Value"]':'GASVENTAS19', GASVENTAS20[, "Value"]':'GASVENTAS20', GASVENTAS21[, "Value"]':'GASVENTAS21', GASVENTAS22[, "Value"]':'GASVENTAS22', GASVENTAS23[, "Value"]':'GASVENTAS23', GASVENTAS24[, "Value"]':'GASVENTAS24', GASVENTAS25[, "Value"]':'GASVENTAS25', GASVENTAS26[, "Value"]':'GASVENTAS26', GASVENTAS27[, "Value"]':'GASVENTAS27', GASVENTAS28[, "Value"]':'GASVENTAS28', GASVENTAS29[, "Value"]':'GASVENTAS29', GASVENTAS30[, "Value"]':'GASVENTAS30', GASVENTAS31[, "Value"]':'GASVENTAS31', GASVENTAS32[, "Value"]':'GASVENTAS32', GASVENTAS33[, "Value"]':'GASVENTAS33', GASVENTAS34[, "Value"]':'GASVENTAS34', GASVENTAS35[, "Value"]':'GASVENTAS35', GASVENTAS36[, "Value"]':'GASVENTAS36', GASVENTAS37[, "Value"]':'GASVENTAS37', GASVENTAS38[, "Value"]':'GASVENTAS38', GASVENTAS39[, "Value"]':'GASVENTAS39', GASVENTAS40[, "Value"]':'GASVENTAS40', GASVENTAS41[, "Value"]':'GASVENTAS41', GASVENTAS42[, "Value"]':'GASVENTAS42', GASVENTAS43[, "Value"]':'GASVENTAS43', GASVENTAS44[, "Value"]':'GASVENTAS44', GASVENTAS45[, "Value"]':'GASVENTAS45', GASVENTAS46[, "Value"]':'GASVENTAS46', GASVENTAS47[, "Value"]':'GASVENTAS47', GASVENTAS48[, "Value"]':'GASVENTAS48', GASVENTAS49[, "Value"]':'GASVENTAS49', GASVENTAS50[, "Value"]':'GASVENTAS50', GASVENTAS51[, "Value"]':'GASVENTAS51', GASVENTAS52[, "Value"]':'GASVENTAS52', GASVENTAS53[, "Value"]':'GASVENTAS53', GASVENTAS54[, "Value"]':'GASVENTAS54', GASVENTAS55[, "Value"]':'GASVENTAS55', GASVENTAS56[, "Value"]':'GASVENTAS56', GASVENTAS57[, "Value"]':'GASVENTAS57', GASVENTAS58[, "Value"]':'GASVENTAS58', GASVENTAS59[, "Value"]':'GASVENTAS59', GASVENTAS60[, "Value"]':'GASVENTAS60', GASVENTAS61[, "Value"]':'GASVENTAS61', GASVENTAS62[, "Value"]':'GASVENTAS62', GASVENTAS63[, "Value"]':'GASVENTAS63', GASVENTAS64[, "Value"]':'GASVENTAS64', GASVENTAS65[, "Value"]':'GASVENTAS65', GASVENTAS66[, "Value"]':'GASVENTAS66', GASVENTAS67[, "Value"]':'GASVENTAS67', GASVENTAS68[, "Value"]':'GASVENTAS68', GASVENTAS69[, "Value"]':'GASVENTAS69', GASVENTAS70[, "Value"]':'GASVENTAS70', GASVENTAS71[, "Value"]':'GASVENTAS71', GASVENTAS72[, "Value"]':'GASVENTAS72', GASVENTAS73[, "Value"]':'GASVENTAS73', GASVENTAS74[, "Value"]':'GASVENTAS74', GASVENTAS75[, "Value"]':'GASVENTAS75', GASVENTAS76[, "Value"]':'GASVENTAS76', GASVENTAS77[, "Value"]':'GASVENTAS77', GASVENTAS78[, "Value"]':'GASVENTAS78', GASVENTAS79[, "Value"]':'GASVENTAS79', GASVENTAS80[, "Value"]':'GASVENTAS80', GASVENTAS81[, "Value"]':'GASVENTAS81', GASVENTAS82[, "Value"]':'GASVENTAS82', GASVENTAS83[, "Value"]':'GASVENTAS83', GASVENTAS84[, "Value"]':'GASVENTAS84', GASVENTAS85[, "Value"]':'GASVENTAS85', GASVENTAS86[, "Value"]':'GASVENTAS86', GASVENTAS87[, "Value"]':'GASVENTAS87', GASVENTAS88[, "Value"]':'GASVENTAS88', GASVENTAS89[, "Value"]':'GASVENTAS89', GASVENTAS90[, "Value"]':'GASVENTAS90', GASVENTAS91[, "Value"]':'GASVENTAS91', GASVENTAS92[, "Value"]':'GASVENTAS92', GASVENTAS95[, "Value"]':'GASVENTAS95', GASVENTAS99[, "Value"]':'GASVENTAS99', GASVENTAS100[, "Value"]':'GASVENTAS100', GASVENTAS101[, "Value"]':'GASVENTAS101', GASVENTAS102[, "Value"]':'GASVENTAS102', GASVENTAS103[, "Value"]':'GASVENTAS103', GASVENTAS104[, "Value"]':'GASVENTAS104', GASVENTAS105[, "Value"]':'GASVENTAS105',})
+```
+
 
 ```python
 df.columns
