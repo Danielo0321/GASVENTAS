@@ -138,7 +138,7 @@ df1['GASVENTAS92'].plot()
 ![patients](Figuras_GV/GV92.png)
 
 
-> Note la irregularidad del comportamiento presentado en la mitad del intervalo y que esa misma irregularidad está presente en las siguientes variables. Determinar con exactitud la fecha y consultar el la vitácora de los operadores si corresponde a alguna maniobra planeada.
+> Note la irregularidad del comportamiento presentado en la mitad del intervalo y que esa misma irregularidad está presente en las siguientes variables. Determinar con exactitud la fecha y si es posible, consultar en la vitácora de los operadores si corresponde a alguna maniobra planeada.
 
 
 ```python
@@ -189,6 +189,15 @@ df1.describe()
 ```
 
 ![patients](Figuras_GV/df1_describe().png)
+
+
+> Ahora realizamos una representación de la desviación estándar para visualizar las variables con dinámicas más altas.
+
+```python
+np.std(df1).plot(kind='bar', figsize=(20,10))
+```
+
+![patients](Figuras_GV/STD1.png)
 
 
 ```python
