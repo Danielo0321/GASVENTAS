@@ -37,6 +37,8 @@ df = pd.read_csv('mi_df.csv', header=0)
 df.head()
 ```
 
+![patients](Figuras_GV/df_head().png)
+
 > En total son 103 columnas, cada una representa una variable del equipo siendo que la primera columna corresponde a la estampa de tiempo (Todas las variables tienen la misma estampa de tiempo) y el volumen total de los datos es de 3GB apoximadamente.
 
 
