@@ -183,7 +183,7 @@ df1=pd.DataFrame(dse, columns=df1.columns)
 df1.describe()
 ```
 
-
+![patients](Figuras_GV/df1_describe().png)
 
 
 ```python
