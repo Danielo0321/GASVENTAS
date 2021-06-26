@@ -357,6 +357,27 @@ p
 array([2, 1, 4, ..., 3, 3, 2], dtype=int64)
 ```
 
+> Dicho array puede ser convertido en una serie para compararlo con los valores del archivo test
+
+```python
+pd.Series(p)
+```
+> Arrojando el siguiente resultado
+
+```python
+0          2
+1          1
+2          4
+3          3
+4          3
+          ..
+1115851    4
+1115852    3
+1115853    3
+1115854    3
+1115855    2
+Length: 1115856, dtype: int64
+```
 
 > En un conjunto de datos de más de 100 variables, muy probablemente menos del 50% realiza un aporte significativo en la sintetización de modelos. Adicional a eso el costo computacional resultaría favorecido. Podemos implementar la desviación estándar para identificar aquellas variables cuyo comportamiento ha sido dinámico y por lo tanto su contribución en la extracción de modelos es mayor.
 
@@ -367,18 +388,6 @@ metricas = df.describe()
 #print(std)
 ```
 
-> Es posible graficar el vector correspondiente a la desviación estándar para visualizar las variables con comportamientos más dinámicos.
-
-```Python
-metricas.iloc[2,1:].plot(kind='bar', figsize=(20,10))
-```
-
-![patients](Figuras_GV/STD.png)
-
-> Note que las variables con mayor desviación son GASVENTAS13[, "Value"], GASVENTAS14[, "Value"] y GASVENTAS101[, "Value"], siendo que GASVENTAS13[, "Value"], tal como se mencionó anteriormente corresponde a la velocidad de la turbina y por lo tanto es considerada una de las variables de mayor relevancia.
 
 
 
-
-
-> Por tratarse de un ejercicio cuya salida corresponde a varios estados, no es posible usar los algoritmos de clasificación binaria
