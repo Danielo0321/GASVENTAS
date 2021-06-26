@@ -281,7 +281,7 @@ df1['Estado_rpm'].value_counts()
 Name: Estado_rpm, dtype: int64
 ```
 
-> Vamos ahora a crear los archivos de entrenamiento y validación, para eso he decidido tomar el 70% de los datos para entrenar modelo y el 20% para validarlo
+> Vamos ahora a crear los archivos de entrenamiento y validación, para eso hemos decidido tomar el 70% de los datos para entrenamiento y el 30% para validación
 
 
 ```Python
@@ -303,7 +303,7 @@ test:  1115856
 ```
 
 
-> Finalmente se almacenan los archivos Gasv-train y Gasv-test
+> Finalmente se crean los archivos *Gasv-train.csv* y *Gasv-test.csv* para almacenar la información correspondiente a los dataframes de entrenamiento y validación.
 
 ```Python
 train_file = 'Gasv-train.csv'
@@ -313,7 +313,49 @@ test_file = 'Gasv-test.csv'
 pd.DataFrame.from_records(test).to_csv(test_file, index=False, header=True, sep=',')
 ```
 
+> Con el siguiente comando pretendo verificar nuevamente que no existan datos Nulos o NaN en los dataframes de entrenamiento y validación
 
+```python
+train = train.fillna(train.mean())
+test = test.fillna(test.mean())
+```
+
+> Creamos los conjuntos de datos de acuerdo a la selección de variables con std superior a 0.15
+
+```python
+X = train[Index]
+y = train['Estado_rpm']
+```
+
+> Ahora procederemos a crear el modelo, usando el algoritmo RandomForest
+
+```python
+modelo = RandomForestClassifier(n_estimators=100, n_jobs=-1, random_state=0)
+```
+
+> Luego a entrenarlo usando los datos de entrenamiento
+
+```python
+modelo.fit(X, y)
+```
+
+```python
+RandomForestClassifier(n_jobs=-1, random_state=0)
+```
+
+> Finalmente procedemos a validar el nivel de predicción del modelo, usando ahora los datos de validación
+
+```python
+p = modelo.predict(X_prev)
+p
+```
+
+> Esto resulta en un grande array de números enteros comprendidos entre 0 y 4 cprrespondientes a cada categoría. 
+
+
+```python
+array([2, 1, 4, ..., 3, 3, 2], dtype=int64)
+```
 
 
 > En un conjunto de datos de más de 100 variables, muy probablemente menos del 50% realiza un aporte significativo en la sintetización de modelos. Adicional a eso el costo computacional resultaría favorecido. Podemos implementar la desviación estándar para identificar aquellas variables cuyo comportamiento ha sido dinámico y por lo tanto su contribución en la extracción de modelos es mayor.
