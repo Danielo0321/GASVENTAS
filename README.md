@@ -5,9 +5,10 @@
 > [**Pueden descargar el archivo .csv de este link**](https://drive.google.com/file/d/1LruXV-BIohTmBBgtYQqmETWbXoPj_edz/view?usp=sharing)
 
 
+> Procedemos inicialmente con el cargue de las librerías que serán usadas
 
-
-```pythonimport pandas as pd
+```python
+import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
